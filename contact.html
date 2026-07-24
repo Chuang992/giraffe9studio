@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>聯絡我們 | Giraffe 9 Studio</title>
-  <meta name="description" content="聯繫 Giraffe 9 Studio，討論您的專案需求">
+  <meta name="google" content="notranslate">
+  <title>Contact | Giraffe 9 Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -18,63 +18,119 @@
     </video>
   </div>
 
+  <!-- Header -->
+  <header class="header">
+    <a href="index.html" class="header-logo">
+      <img src="images_videos/logo_white.svg" alt="Giraffe 9 Studio" width="120" height="40">
+    </a>
+    <nav class="header-nav">
+      <a href="works.html">Project</a>
+      <a href="about.html">About us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="開啟選單">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
   <!-- Site Content Container -->
   <div class="site-content">
 
-  <!-- Header -->
-  <header class="header">
-    <a href="index.html" class="logo">GIRAFFE<span>9</span>STUDIO</a>
-    <nav>
-      <ul class="nav-list">
-        <li><a href="index.html">首頁</a></li>
-        <li><a href="works.html">案例介紹</a></li>
-        <li><a href="about.html">關於我們</a></li>
-        <li><a href="contact.html">聯絡我們</a></li>
-      </ul>
-    </nav>
-    <div class="menu-toggle" aria-label="開啟選單" role="button" tabindex="0">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </header>
+    <!-- Contact Banner -->
+    <section class="contact-banner">
+      <video class="contact-banner-video" autoplay muted loop playsinline>
+        <source src="images_videos/contact_banner.mp4" type="video/mp4">
+      </video>
+    </section>
 
-  <!-- Main Content -->
-  <main>
-    <section class="section">
-      <h1 class="section-title">聯絡我們</h1>
-      <p class="section-subtitle">有任何想法或需求，歡迎與我們聊聊</p>
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+      <img class="contact-form-title-img" src="images_videos/title_04.svg" alt="Contact Us">
+      <p class="contact-form-subtitle">讓我們聊聯您的下一個專案</p>
 
-      <div class="contact-wrapper">
-        <div class="contact-info">
-          <h3>聯繫方式</h3>
-          <p>📧 Email: hello@giraffe9studio.com</p>
-          <p>📱 Phone: (請填入電話)</p>
-          <p>📍 Location: (請填入地址)</p>
-          <br>
-          <h3>社群媒體</h3>
-          <p>Instagram: @giraffe9studio</p>
-          <p>Facebook: Giraffe 9 Studio</p>
+      <form class="contact-form" action="#" method="POST">
+        <div class="form-row form-row-2">
+          <div class="form-group">
+            <label>1. 您需要的服務</label>
+            <div class="custom-select" data-name="service">
+              <div class="custom-select-trigger">
+                <span>UI/UX設計</span>
+                <img src="images_videos/qa_open.svg" alt="" class="select-arrow">
+              </div>
+              <ul class="custom-select-options">
+                <li data-value="UI/UX設計" class="selected">UI/UX設計</li>
+                <li data-value="視覺設計">視覺設計</li>
+                <li data-value="印刷品設計">印刷品設計</li>
+                <li data-value="包裝設計">包裝設計</li>
+                <li data-value="品牌行銷">品牌行銷</li>
+                <li data-value="其他">其他</li>
+              </ul>
+              <input type="hidden" name="service" value="UI/UX設計">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>2. 您的預算</label>
+            <div class="custom-select" data-name="budget">
+              <div class="custom-select-trigger">
+                <span>10萬以下</span>
+                <img src="images_videos/qa_open.svg" alt="" class="select-arrow">
+              </div>
+              <ul class="custom-select-options">
+                <li data-value="10萬以下" class="selected">10萬以下</li>
+                <li data-value="10萬 ~ 20萬">10萬 ~ 20萬</li>
+                <li data-value="20萬 ~ 30萬">20萬 ~ 30萬</li>
+                <li data-value="30萬以上">30萬以上</li>
+                <li data-value="其他">其他</li>
+              </ul>
+              <input type="hidden" name="budget" value="10萬以下">
+            </div>
+          </div>
         </div>
 
-        <form class="contact-form" action="#" method="POST">
-          <input type="text" name="name" placeholder="您的姓名" required aria-label="姓名">
-          <input type="email" name="email" placeholder="Email 信箱" required aria-label="Email">
-          <input type="text" name="subject" placeholder="主旨" aria-label="主旨">
-          <textarea name="message" placeholder="請簡述您的需求或想法..." required aria-label="訊息內容"></textarea>
-          <button type="submit" class="btn">送出訊息</button>
-        </form>
-      </div>
+        <div class="form-row form-row-2">
+          <div class="form-group">
+            <label>3. 姓名/公司名稱</label>
+            <input type="text" name="name" placeholder="請輸入姓名/公司名稱" required maxlength="30">
+          </div>
+          <div class="form-group-split">
+            <div class="form-group">
+              <label>4. 聯絡電話</label>
+              <input type="tel" name="phone" placeholder="請輸入聯絡電話" maxlength="15" pattern="[0-9\+\-\(\)\s]*">
+            </div>
+            <div class="form-group">
+              <label>5. 電子郵件</label>
+              <input type="email" name="email" placeholder="請輸入電子郵件" required pattern="[a-zA-Z0-9._%+\-@]*" maxlength="100">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-full">
+            <label>6. 簡單描述您的需求</label>
+            <textarea name="message" placeholder="請輸入內容 (如：數位產品UI/UX規劃、企業視覺或展場設計...等）" rows="6" required maxlength="2000"></textarea>
+          </div>
+        </div>
+
+        <div class="form-submit">
+          <a href="#" class="contact-cta-btn" onclick="document.querySelector('.contact-form').submit(); return false;">送出表單</a>
+        </div>
+      </form>
     </section>
-  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2026 Giraffe 9 Studio. All rights reserved.</p>
-  </footer>
+    <!-- Footer -->
+    <footer class="footer">
+      <img class="footer-logo" src="images_videos/logo_white.svg" alt="Giraffe 9 Studio">
+      <p class="footer-copyright">Copyright © 2018 - <span id="current-year"></span> <strong>Giraffe9Studio</strong> All rights reserved.</p>
+    </footer>
 
-  </div><!-- /.site-content -->
+  </div>
 
-  <script src="js/main.js"></script>
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-tooltip"></div>
+
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>
