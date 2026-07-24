@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  // ===== Disable right-click on images =====
+  document.addEventListener('contextmenu', function(e) {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  });
+
   // ===== Custom Cursor =====
   var cursor = document.querySelector('.cursor-dot');
   var mouseX = 0, mouseY = 0;
@@ -32,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var tooltipTimeout = null;
 
   document.addEventListener('mouseover', function(e) {
-    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item');
+    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item, .client-item');
     if (target && cursor) {
       cursor.classList.add('active');
     }
@@ -52,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.addEventListener('mouseout', function(e) {
-    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item');
+    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item, .client-item');
     if (target && cursor) {
       cursor.classList.remove('active');
     }
@@ -155,6 +162,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('scroll', checkPortfolioVisible);
   checkPortfolioVisible();
+
+  // ===== Clients Scroll Reveal =====
+  var clientItems = document.querySelectorAll('.client-item');
+  var clientsSection = document.querySelector('.clients');
+
+  function checkClientsVisible() {
+    if (!clientsSection) return;
+    var rect = clientsSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.6) {
+      clientItems.forEach(function(el) {
+        el.classList.add('revealed');
+      });
+      window.removeEventListener('scroll', checkClientsVisible);
+    }
+  }
+
+  window.addEventListener('scroll', checkClientsVisible);
+  checkClientsVisible();
 
   // ===== Banner Letter Entrance Animation =====
   var entranceEls = document.querySelectorAll('.banner-letter-g, .banner-letter-i, .banner-letter-r, .letter-ae-group, .banner-letter-f, .banner-letter-e2');
