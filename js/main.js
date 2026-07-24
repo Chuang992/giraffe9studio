@@ -39,9 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var tooltipTimeout = null;
 
   document.addEventListener('mouseover', function(e) {
-    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item, .client-item');
+    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item, .client-item, .faq-item');
     if (target && cursor) {
       cursor.classList.add('active');
+      var clickable = e.target.closest('a, button, [role="button"], .faq-item');
+      if (clickable) {
+        cursor.classList.add('clickable');
+      }
     }
     // Tooltip
     var tipTarget = e.target.closest('[data-tooltip]');
@@ -59,9 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.addEventListener('mouseout', function(e) {
-    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item, .client-item');
+    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item, .client-item, .faq-item');
     if (target && cursor) {
       cursor.classList.remove('active');
+      cursor.classList.remove('clickable');
     }
     // Tooltip
     var tipTarget = e.target.closest('[data-tooltip]');
@@ -69,6 +74,19 @@ document.addEventListener('DOMContentLoaded', function() {
       clearTimeout(tooltipTimeout);
       tooltip.classList.remove('visible');
       currentTooltipTarget = null;
+    }
+  });
+
+  document.addEventListener('mousedown', function(e) {
+    var target = e.target.closest('a, button, [role="button"], .service-item-wrapper, .portfolio-item:not(.portfolio-text), .banner-grid-letter, .banner-grid-item, .client-item, .faq-item');
+    if (target && cursor) {
+      cursor.classList.add('pressing');
+    }
+  });
+
+  document.addEventListener('mouseup', function() {
+    if (cursor) {
+      cursor.classList.remove('pressing');
     }
   });
 
@@ -180,6 +198,84 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('scroll', checkClientsVisible);
   checkClientsVisible();
+
+  // ===== About Stats Counter =====
+  var statNumbers = document.querySelectorAll('.stat-number');
+  var aboutSection = document.querySelector('.about-section');
+  var statsAnimated = false;
+
+  function animateCounters() {
+    if (statsAnimated || !aboutSection) return;
+    var rect = aboutSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.7) {
+      statsAnimated = true;
+      statNumbers.forEach(function(el) {
+        var target = parseInt(el.getAttribute('data-target'));
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 1500;
+        var startTime = null;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = Math.min((timestamp - startTime) / duration, 1);
+          var current = Math.floor(progress * target);
+          if (target >= 1000) {
+            el.textContent = current.toLocaleString() + suffix;
+          } else {
+            el.textContent = current + suffix;
+          }
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            if (target >= 1000) {
+              el.textContent = target.toLocaleString() + suffix;
+            } else {
+              el.textContent = target + suffix;
+            }
+          }
+        }
+
+        requestAnimationFrame(step);
+      });
+      window.removeEventListener('scroll', animateCounters);
+    }
+  }
+
+  window.addEventListener('scroll', animateCounters);
+  animateCounters();
+
+  // ===== Auto-update copyright year =====
+  var yearEl = document.getElementById('current-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
+  // ===== FAQ Toggle =====
+  var faqItemEls = document.querySelectorAll('.faq-item');
+
+  faqItemEls.forEach(function(item) {
+    item.addEventListener('click', function() {
+      var isOpen = item.classList.contains('open');
+      var icon = item.querySelector('.faq-icon');
+      var answer = item.querySelector('.faq-answer');
+
+      // Close all
+      faqItemEls.forEach(function(other) {
+        other.classList.remove('open');
+        var otherIcon = other.querySelector('.faq-icon');
+        var otherAnswer = other.querySelector('.faq-answer');
+        if (otherIcon) otherIcon.src = 'images_videos/qa_open.svg';
+        if (otherAnswer) otherAnswer.style.maxHeight = '0';
+      });
+
+      // Toggle current
+      if (!isOpen) {
+        item.classList.add('open');
+        if (icon) icon.src = 'images_videos/qa_close.svg';
+        if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
 
   // ===== Banner Letter Entrance Animation =====
   var entranceEls = document.querySelectorAll('.banner-letter-g, .banner-letter-i, .banner-letter-r, .letter-ae-group, .banner-letter-f, .banner-letter-e2');
