@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /index.html
+Allow: /works.html
+Allow: /about.html
+Allow: /contact.html
+Disallow: /works/
+
+Sitemap: https://www.giraffe9studio.com/sitemap.xml

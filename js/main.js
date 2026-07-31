@@ -1,5 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  // ===== Page Transition =====
+  var pageTransitions = document.querySelectorAll('.page-transition');
+  var internalLinks = document.querySelectorAll('a[href$=".html"]');
+
+  // Handle browser back/forward - remove covering state
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) {
+      pageTransitions.forEach(function(pt) {
+        pt.classList.remove('covering');
+        pt.style.animation = 'none';
+        pt.offsetHeight; // force reflow
+        pt.style.animation = '';
+      });
+    }
+  });
+
+  // Cover on link click
+  internalLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var href = link.getAttribute('href');
+      if (href && !href.startsWith('http') && !href.startsWith('#')) {
+        e.preventDefault();
+        pageTransitions.forEach(function(pt) {
+          pt.classList.add('covering');
+        });
+        setTimeout(function() {
+          window.location.href = href;
+        }, 400);
+      }
+    });
+  });
+
   // ===== Disable right-click on images =====
   document.addEventListener('contextmenu', function(e) {
     if (e.target.tagName === 'IMG') {
