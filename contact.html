@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google" content="notranslate">
   <title>Contact | Giraffe 9 Studio</title>
+  <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="聯繫 Giraffe 9 Studio，讓我們聊聊您的下一個設計專案。">
   <meta property="og:title" content="Contact | Giraffe 9 Studio">
   <meta property="og:description" content="聯繫 Giraffe 9 Studio，讓我們聊聊您的下一個設計專案。">
@@ -32,8 +33,6 @@
       <img src="images_videos/logo_white.svg" alt="Giraffe 9 Studio" width="120" height="40">
     </a>
     <nav class="header-nav">
-      <a href="works.html">Project</a>
-      <a href="about.html">About us</a>
       <a href="contact.html">Contact</a>
     </nav>
     <button class="menu-toggle" aria-label="開啟選單">
@@ -58,7 +57,11 @@
       <img class="contact-form-title-img" src="images_videos/title_04.svg" alt="Contact Us">
       <p class="contact-form-subtitle">讓我們聊聯您的下一個專案</p>
 
-      <form class="contact-form" action="#" method="POST">
+      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="90401104-349a-4f05-8dfa-d3a2cf9db589">
+        <input type="hidden" name="subject" value="Giraffe 9 Studio - 新的聯絡表單">
+        <input type="hidden" name="from_name" value="Giraffe 9 Studio 官網">
+        <input type="hidden" name="redirect" value="https://chuang992.github.io/giraffe9studio/contact.html?success=true">
         <div class="form-row form-row-2">
           <div class="form-group">
             <label>1. 您需要的服務</label>
@@ -121,10 +124,19 @@
           </div>
         </div>
 
+        <!-- honeypot spam protection -->
+        <input type="checkbox" name="botcheck" style="display:none">
+
         <div class="form-submit">
-          <a href="#" class="contact-cta-btn" onclick="document.querySelector('.contact-form').submit(); return false;">送出表單</a>
+          <button type="submit" class="contact-cta-btn">送出表單</button>
         </div>
       </form>
+
+      <!-- 送出成功提示 -->
+      <div id="form-success" style="display:none; text-align:center; padding: 60px 0;">
+        <p style="font-size:24px; font-weight:700; color:#4B7D8B; margin-bottom:12px;">感謝您的來信！</p>
+        <p style="font-size:18px; color:#191A1C;">我們已收到您的訊息，將盡快與您聯繫。</p>
+      </div>
     </section>
 
     <!-- Footer -->
@@ -144,5 +156,13 @@
   <div class="cursor-tooltip"></div>
 
   <script src="js/main.js?v=2"></script>
+  <script>
+    if (window.location.search.includes('success=true')) {
+      var form = document.querySelector('.contact-form');
+      var success = document.getElementById('form-success');
+      if (form) form.style.display = 'none';
+      if (success) success.style.display = 'block';
+    }
+  </script>
 </body>
 </html>

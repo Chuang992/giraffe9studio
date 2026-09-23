@@ -1336,9 +1336,12 @@ img {
   color: #FFFFFF;
   font-size: 20px;
   font-weight: 500;
+  font-family: var(--font-main);
   text-align: center;
   text-decoration: none;
   border-radius: 999px;
+  border: none;
+  cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
